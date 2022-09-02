@@ -1,46 +1,60 @@
-# Getting Started with Create React App
+# Tikal Code Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Schwifty Meme](https://memegenerator.net/img/instances/80271336/its-time-to-get-swifty.jpg)
 
-## Available Scripts
+Greetings C-137 residents,
 
-In the project directory, you can run:
+We need your help finding creepy Morty before he can do some evil stuff.
 
-### `npm start`
+In order to find him, we need you to use the <a href="https://rickandmortyapi.com/">Rick & Morty API</a>.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## PART I
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Your first lead is to find `The Most unpopular character from Earth C-137`
+(The character from the origin “Earth C-137” and appears in as few episodes as possible)
 
-### `npm test`
+**Tip:** Make as few API calls as possible (there is a good way and a bad way to do it).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Tip:** Have a look at the data returned from the APIbefore starting to implement.
 
-### `npm run build`
+The output of the report should be a table that contains the following information:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<table>
+    <tr>
+        <td>Character name</td>
+        <td>{character name}</td>
+    </tr>
+    <tr>
+        <td>Origin name</td>
+        <td>{origin name}</td>
+    </tr>
+        <tr>
+        <td>Origin dimension</td>
+        <td>{origin dimension}</td>
+    </tr>
+        <tr>
+        <td>Popularity</td>
+        <td>{episode.length}</td>
+    </tr>
+</table>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## PART II
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Please create a bar chart of the popularity (num of episodes is shown on) of 5 given different characters, without using any chart libraries. We do not need to implement the axis, but we
+want to see a legend.
 
-### `npm run eject`
+Use the following data for the characters:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`[Rick Sanchez, Summer Smith, Morty Smith, Beth Smith, Jerry Smith].`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**Requirements:**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+-   Make sure you implement the code as performant as you can.
+-   Keep code readability in mind!
+-   You should use React.</br>
+    <span style="opacity: 0.5">if you want to use a different one, contact us and let's talk about it.</span>
+-   Do not use any API wrappers, use the given API directly.
+-   Other than that you can use any packages or libraries you want.
+-   Submit your solution on Gitlab/Github/BitBucket, etc.
