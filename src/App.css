@@ -37,7 +37,7 @@ p {
 
 /* Bar Chart */
 .Chart {
-    @apply text-xs table-fixed text-center w-full mt-2 flex-grow basis-48 h-0;
+    @apply text-xs table-fixed text-center w-full flex-grow basis-48 h-0;
 }
 .Chart tr:nth-child(1) td {
     @apply align-bottom basis-full;
@@ -61,7 +61,7 @@ p {
 }
 
 .Chart .label {
-    @apply inline-flex items-center justify-center bg-gray-300 dark:bg-gray-900 relative -top-2 h-7 w-7 text-gray-900 dark:text-white font-bold rounded-full cursor-pointer select-none hover:bg-gray-500 hover:text-white dark:hover:bg-gray-700 duration-300 self-center;
+    @apply inline-flex items-center justify-center bg-gray-300 dark:bg-gray-900 mb-2 h-7 w-7 text-gray-900 dark:text-white font-bold rounded-full cursor-pointer select-none hover:bg-gray-500 hover:text-white dark:hover:bg-gray-700 duration-300 self-center;
     animation: fade 1s ease-in-out forwards;
 }
 
