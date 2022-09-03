@@ -43,7 +43,7 @@ function useFetchCharactersFromOrigin(planet: string): State {
                     .map((query) => query.episodes?.results)
                     .flat();
 
-                const characters = results.reduce((obj, episode) => {
+                const charactersData = results.reduce((obj, episode) => {
                     episode?.characters?.forEach((character) => {
                         const { name, origin } = character || {};
                         if (name && origin?.name === planet) {
@@ -61,7 +61,7 @@ function useFetchCharactersFromOrigin(planet: string): State {
                     return obj;
                 }, {} as CharactersData);
 
-                setData(characters);
+                setData(charactersData);
             } catch (error) {
                 setError(error as Error);
             } finally {

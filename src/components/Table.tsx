@@ -1,12 +1,32 @@
-import React from 'react';
-import { TableData } from '../@types/types';
+import React, { useState, useEffect } from 'react';
+import { CharactersData, TableData } from '../@types/types';
 import NoData from './NoData';
 
 type Props = {
-    data?: TableData;
+    characters?: CharactersData;
 };
 const Table = (props: Props) => {
-    const { data } = props;
+    const { characters } = props;
+    const [data, setData] = useState<TableData>();
+
+    useEffect(() => {
+        if (characters) {
+            const leastPopular = Object.values(characters)?.reduce((prv, cur) =>
+                prv.episode.length || 0 < cur.episode.length || 0 ? cur : prv
+            );
+            const { name, origin, episode } = leastPopular;
+            
+            const tableData: TableData = [
+                ['Character name', name || ''],
+                ['Origin name', origin?.name || ''],
+                ['Origin dimension', origin?.dimension || ''],
+                ['Popularity', episode.length || 0],
+            ];
+
+            setData(tableData);
+        }
+    }, [characters]);
+
     return data ? (
         <table className='Table'>
             <tbody>

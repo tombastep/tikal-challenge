@@ -1,4 +1,3 @@
-type Props = {};
 const Spinner = () => {
     return (
         <svg

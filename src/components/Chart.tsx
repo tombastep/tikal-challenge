@@ -1,12 +1,32 @@
-import React from 'react';
-import { ChartData } from '../@types/types';
+import React, { useState, useEffect } from 'react';
+import { CharactersData, ChartData } from '../@types/types';
+import charactersToCompare from '../utils/charactersToCompare';
 import NoData from './NoData';
 
 type Props = {
-    data?: ChartData;
+    characters?: CharactersData;
 };
 const Chart = (props: Props) => {
-    const { data } = props;
+    const { characters } = props;
+    const [data, setData] = useState<ChartData>();
+
+    useEffect(() => {
+        if (characters) {
+            const values: number[] = charactersToCompare.map(
+                (name) => characters[name]?.episode.length || 0
+            );
+            const maxValue = Math.max(...values);
+
+            const chartData: ChartData = charactersToCompare.map((name, i) => [
+                name,
+                values[i],
+                `${(values[i] / maxValue) * 100}%`,
+            ]);
+
+            setData(chartData);
+        }
+    }, [characters]);
+
     return data ? (
         <table className='Chart'>
             <tbody>
@@ -23,7 +43,8 @@ const Chart = (props: Props) => {
                 <tr className='names'>
                     {data?.map(([name, value]) => (
                         <td key={name} className='name'>
-                            {name}{!value ? ' (N/A)' : ''}
+                            {name}
+                            {!value ? ' (N/A)' : ''}
                         </td>
                     ))}
                 </tr>
