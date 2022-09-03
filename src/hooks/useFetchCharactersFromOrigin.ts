@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 
-import { ReturnedCharacters } from '../@types/types';
+import { CharactersData } from '../@types/types';
 
 import getAllEpisodesCharacters from '../queries/getAllEpisodesCharacters';
 import getAllEpisodesPages from '../queries/getAllEpisodesPages';
 import fetchApi from '../utils/fetchApi';
 
 interface State {
-    data?: ReturnedCharacters;
+    data?: CharactersData;
     error?: Error;
     loading: boolean;
 }
 
 function useFetchCharactersFromOrigin(planet: string): State {
-    const [data, setData] = useState<ReturnedCharacters>();
+    const [data, setData] = useState<CharactersData>();
     const [error, setError] = useState<Error>();
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -23,10 +23,12 @@ function useFetchCharactersFromOrigin(planet: string): State {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const fetchPages = await fetchApi(getAllEpisodesPages);
-                const pages = fetchPages.episodes?.info?.pages || 0;
+                const pages =
+                    (await fetchApi(getAllEpisodesPages)).episodes?.info
+                        ?.pages || 0;
 
                 const promises = [];
+
                 for (let page = 1; page <= pages; page++) {
                     promises.push(
                         fetchApi(getAllEpisodesCharacters, {
@@ -57,7 +59,7 @@ function useFetchCharactersFromOrigin(planet: string): State {
                     });
 
                     return obj;
-                }, {} as ReturnedCharacters);
+                }, {} as CharactersData);
 
                 setData(characters);
             } catch (error) {

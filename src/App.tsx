@@ -28,7 +28,7 @@ function App() {
             const { name, origin, episode } = leastPopular;
             const data: TableData = [
                 ['Character name', name || ''],
-                ['Origin name', origin?.name || ''], 
+                ['Origin name', origin?.name || ''],
                 ['Origin dimension', origin?.dimension || ''],
                 ['Popularity', episode.length || 0],
             ];
