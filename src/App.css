@@ -3,7 +3,7 @@
 }
 
 /* Text */
-h1 {
+header {
     @apply text-3xl font-bold text-gray-800 dark:text-gray-100;
 }
 
@@ -16,39 +16,39 @@ p {
 }
 
 /* Table */
-.table table {
+.Table {
     @apply w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4;
 }
 
-.table tr:nth-child(even) {
+.Table tr:nth-child(even) {
     @apply bg-transparent dark:border-gray-700;
 }
-.table tr {
-    @apply bg-gray-100 border-b  dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer;
+.Table tr {
+    @apply bg-gray-100 border-b  dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer origin-top;
+    animation: fade 1s ease-in-out forwards;
 }
-.table th,
-.table td {
+.Table tr > * {
     @apply py-3 px-6;
 }
 
 /* Bar Chart */
-.bar-chart {
+.Chart {
     @apply text-xs table-fixed text-center w-full mt-2;
 }
-.bar-chart tr:nth-child(1) td {
+.Chart tr:nth-child(1) td {
     @apply align-bottom h-[20vh] sm:h-[30vh];
 }
 
-.bar-chart .bar {
+.Chart .bar {
     @apply bg-slate-500 dark:bg-slate-300 pt-1 origin-bottom;
     animation: grow 1s ease-in-out forwards;
 }
 
-.bar-chart .name {
+.Chart .name {
     @apply pt-2;
 }
 
-.bar-chart .label {
+.Chart .label {
     @apply inline-flex items-center justify-center bg-gray-300 dark:bg-gray-900 relative -top-2 h-7 w-7 text-gray-900 dark:text-white font-bold rounded-full cursor-pointer select-none hover:bg-gray-500 hover:text-white dark:hover:bg-gray-700 duration-300;
     animation: fade 1s ease-in-out forwards;
 }

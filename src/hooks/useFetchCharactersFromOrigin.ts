@@ -1,46 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Character, Info } from '../@types/generated';
-import { fetchApi } from '../utils/fetchApi';
+
+import { ReturnedCharacters } from '../@types/types';
+
+import getAllEpisodesCharacters from '../queries/getAllEpisodesCharacters';
+import getAllEpisodesPages from '../queries/getAllEpisodesPages';
+import fetchApi from '../utils/fetchApi';
 
 interface State {
-    data?: Record<string, Character>;
+    data?: ReturnedCharacters;
     error?: Error;
     loading: boolean;
 }
 
-const getAllEpisodesPages = `#graphql
-    query getAllEpisodesPages {
-        episodes {
-            info {
-                pages
-            }
-        }
-    }
-`;
-
-const getAllEpisodesCharacters = `#graphql
-query getAllEpisodesCharacters($page: Int) {
-    episodes(page: $page) {
-        results {
-            name
-            characters {
-                id
-                name
-                origin {
-                    name
-                    dimension
-                }
-            }
-        }
-    }
-}
-`;
-
 function useFetchCharactersFromOrigin(planet: string): State {
-    const [data, setData] = useState<Record<string, Character>>();
+    const [data, setData] = useState<ReturnedCharacters>();
     const [error, setError] = useState<Error>();
     const [loading, setLoading] = useState<boolean>(false);
-    const [pages, setPages] = useState<Info['pages']>();
 
     useEffect(() => {
         let shouldFetch = true;
@@ -48,48 +23,46 @@ function useFetchCharactersFromOrigin(planet: string): State {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                if (!pages) {
-                    const res = await fetchApi(getAllEpisodesPages);
-                    setPages(res.episodes?.info?.pages);
-                } else {
-                    const promises = [];
-                    for (let page = 1; page <= pages; page++) {
-                        promises.push(
-                            fetchApi(getAllEpisodesCharacters, {
-                                page,
-                            })
-                        );
-                    }
+                const fetchPages = await fetchApi(getAllEpisodesPages);
+                const pages = fetchPages.episodes?.info?.pages || 0;
 
-                    const queries = await Promise.all(promises);
-
-                    const results = queries
-                        .map((query) => query.episodes?.results)
-                        .flat();
-
-                    const characters = results.reduce((obj, episode) => {
-                        episode?.characters?.forEach((character) => {
-                            const { name, origin } = character || {};
-                            if (name && origin?.name === planet) {
-                                if (obj[name]) obj[name].episode.push(episode);
-                                else {
-                                    obj[name!] = {
-                                        name,
-                                        origin,
-                                        episode: [episode],
-                                    };
-                                }
-                            }
-                        });
-
-                        return obj;
-                    }, {} as Record<string, Character>);
-
-                    setData(characters);
-                    setLoading(false);
+                const promises = [];
+                for (let page = 1; page <= pages; page++) {
+                    promises.push(
+                        fetchApi(getAllEpisodesCharacters, {
+                            page,
+                        })
+                    );
                 }
+
+                const queries = await Promise.all(promises);
+
+                const results = queries
+                    .map((query) => query.episodes?.results)
+                    .flat();
+
+                const characters = results.reduce((obj, episode) => {
+                    episode?.characters?.forEach((character) => {
+                        const { name, origin } = character || {};
+                        if (name && origin?.name === planet) {
+                            if (obj[name]) obj[name].episode.push(episode);
+                            else {
+                                obj[name!] = {
+                                    name,
+                                    origin,
+                                    episode: [episode],
+                                };
+                            }
+                        }
+                    });
+
+                    return obj;
+                }, {} as ReturnedCharacters);
+
+                setData(characters);
             } catch (error) {
                 setError(error as Error);
+            } finally {
                 setLoading(false);
             }
         };
@@ -99,7 +72,7 @@ function useFetchCharactersFromOrigin(planet: string): State {
         return () => {
             shouldFetch = false;
         };
-    }, [pages, planet]);
+    }, [planet]);
 
     return { data, loading, error };
 }

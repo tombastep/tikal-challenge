@@ -3,12 +3,10 @@ import { Query } from '../@types/generated';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export const fetchApi = async (
-    query: string,
-    variables = {}
-): Promise<Query> => {
-    if (!apiUrl) throw new Error('Environment Variable REACT_APP_API_URL is undefined');
-    
+const fetchApi = async (query: string, variables = {}): Promise<Query> => {
+    if (!apiUrl)
+        throw new Error('Environment Variable REACT_APP_API_URL is undefined');
+
     const res = await axios.post(apiUrl, {
         query,
         variables,
@@ -19,3 +17,5 @@ export const fetchApi = async (
 
     return data;
 };
+
+export default fetchApi;
