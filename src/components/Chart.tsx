@@ -13,8 +13,10 @@ const Chart = (props: Props) => {
                 <tr className='bars'>
                     {data?.map(([name, value, height]) => (
                         <td key={name}>
-                            <span className='label'>{value}</span>
-                            <div className='bar' style={{ height }}></div>
+                            <div className='container'>
+                                <span className='label'>{value}</span>
+                                <div className='bar' style={{ height }}></div>
+                            </div>
                         </td>
                     ))}
                 </tr>

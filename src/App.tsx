@@ -61,12 +61,12 @@ function App() {
         <div className='App'>
             <header>Rick and Morty - Tikal Code Challenge</header>
             <h2>The most unpopular character from Earth C-137</h2>
-            <div className='table'>
+            <div>
                 <LoadingGate loading={loading}>
                     <Table data={tableData} />
                 </LoadingGate>
             </div>
-            <div className='chart'>
+            <div>
                 <h2>Popularity chart for characters from Earth C-137</h2>
                 <p>
                     <b>Selected characters:</b> {charactersToCompare.join(', ')}
